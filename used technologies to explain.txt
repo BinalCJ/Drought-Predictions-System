@@ -1,0 +1,102 @@
+model training pipeline using LightGBM
+
+Why LightGBM?
+
+Better handling of numeric and categorical data.
+Supports multiclass classification natively.
+Offers early stopping and cross-validation easily
+Faster training than Random Forest.
+
+XGBoost
+
+This needs a time-series forecasting model: We'll go with LSTM for better flexibility and accuracy
+
+Use your LightGBM classifier
+
+Ensure the model is properly trained and saved
+
+Improve prediction accuracy with proper preprocessing if needed
+
+Ensure clean, production-ready integration with your Flask API
+
+
+
+
+Enhance preprocessing:
+
+Use StandardScaler to normalize features.
+
+Add missing value handling explicitly (even if current dataset is clean).
+
+Tune LightGBM hyperparameters for better performance.
+
+Add cross-validation to better estimate model performance.
+
+Export LabelEncoder or mappings, so the API can decode predictions if needed.
+
+Save both model and scaler using joblib.
+
+
+
+Critical Notes
+All .pkl files must exist in models/ for predictions to work:
+
+drought_predictor.pkl
+
+scaler.pkl
+
+label_mapping.pkl
+
+If you're deploying this or calling the API in production, avoid hardcoded paths like ..C:/Users/... in train_model.py. Use os.path.
+
+
+
+
+.venv\Scripts\activate
+
+pip install -r api/requirements.txt
+
+python train_model.py
+
+python app.py
+
+
+
+{
+    "Monthly Drought Forecast": {
+        "June 2025": "Moderate Risk",
+        "July 2025": "Moderate Risk",
+        "August 2025": "Moderate Risk",
+        "September 2025": "Moderate Risk",
+        "October 2025": "Low Risk",
+        "November 2025": "Low Risk",
+        "December 2025": "Low Risk",
+        "January 2026": "Low Risk",
+        "February 2026": "Moderate Risk",
+        "March 2026": "Moderate Risk",
+        "April 2026": "Moderate Risk",
+        "May 2026": "High Risk",
+        "June 2026": "High Risk",
+    },
+    "Region": "Anuradhapura AdministrativeArea4"
+}
+
+
+print("Cross-validation Accuracy (5 folds):", cv_scores.mean())
+
+
+
+
+
+Frontend ➝ Backend ➝ ML Model ➝ MongoDB ✅ 
+
+
+Validate form inputs
+
+Call the backend
+
+Store data in MongoDB
+
+Redirect with proper data
+
+Show results on DroughtResult.jsx
